@@ -1,9 +1,17 @@
+<!--
+ * @Author: liuyang 237797597@qq.com
+ * @Date: 2026-08-24 17:51:30
+ * @LastEditors: liuyang 237797597@qq.com
+ * @LastEditTime: 2026-08-24 18:03:37
+ * @FilePath: \vibe-coded-piano-tiles\README.md
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+-->
 # 🎹 别踩白块 · Piano Tiles
 
 > 一个用 **vibe coding（AI 辅助编程）** 从零做出来的原生 HTML5 小游戏。
 > 玩法一句话：点击黑色方块得分，别踩到白的，也别让方块溜走！
 
-**[👉 在线试玩](https://YOUR_USERNAME.github.io/vibe-coded-piano-tiles/)**（发布后替换链接）
+**[👉 在线试玩](https://liuyang996.github.io/vibe-coded-piano-tiles/)**
 
 ---
 
