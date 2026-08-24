@@ -8,6 +8,10 @@
 -->
 # 🎹 别踩白块 · Piano Tiles
 
+<p align="center">
+  <img src="logo.png" alt="别踩白块 Logo" width="140" />
+</p>
+
 > 一个用 **vibe coding（AI 辅助编程）** 从零做出来的原生 HTML5 小游戏。
 > 玩法一句话：点击黑色方块得分，别踩到白的，也别让方块溜走！
 
