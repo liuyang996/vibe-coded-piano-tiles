@@ -13,6 +13,7 @@ const aboutModal = document.getElementById('about-modal');
 const scoreEl = document.getElementById('score');
 const bestEl = document.getElementById('best');
 const comboEl = document.getElementById('combo');
+const musicBtn = document.getElementById('music-btn');
 const startBestEl = document.getElementById('start-best');
 const finalScoreEl = document.getElementById('final-score');
 const finalBestEl = document.getElementById('final-best');
@@ -86,6 +87,52 @@ function playGameOver() {
     osc.start(t + i * 0.18);
     osc.stop(t + i * 0.18 + 0.5);
   });
+}
+
+/* ---------- 背景音乐（Web Audio 循环旋律） ---------- */
+let musicOn = false;
+let musicTimer = null;
+let musicStep = 0;
+const MELODY = [523.25, 659.25, 783.99, 1046.5, 783.99, 659.25, 587.33, 523.25];
+
+function playMusicNote(freq) {
+  if (!audioCtx) return;
+  const osc = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+  osc.type = 'sine';
+  osc.frequency.value = freq;
+  gain.gain.setValueAtTime(0.0001, audioCtx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.05, audioCtx.currentTime + 0.05);
+  gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.6);
+  osc.connect(gain).connect(audioCtx.destination);
+  osc.start();
+  osc.stop(audioCtx.currentTime + 0.65);
+}
+
+function startMusic() {
+  if (musicTimer) return;
+  musicStep = 0;
+  musicTimer = setInterval(() => {
+    if (!musicOn || !audioCtx) return;
+    playMusicNote(MELODY[musicStep % MELODY.length]);
+    musicStep++;
+  }, 300);
+}
+
+function stopMusic() {
+  if (musicTimer) {
+    clearInterval(musicTimer);
+    musicTimer = null;
+  }
+}
+
+function toggleMusic() {
+  ensureAudio();
+  musicOn = !musicOn;
+  if (musicOn) startMusic();
+  else stopMusic();
+  musicBtn.textContent = musicOn ? '🎵' : '🔇';
+  musicBtn.classList.toggle('off', !musicOn);
 }
 
 /* ---------- 画布尺寸（适配 DPR 与手机） ---------- */
@@ -256,6 +303,7 @@ function gameOver() {
 
 document.getElementById('start-btn').addEventListener('click', startGame);
 document.getElementById('restart-btn').addEventListener('click', startGame);
+musicBtn.addEventListener('click', toggleMusic);
 
 /* ---------- 关于弹窗 ---------- */
 const repoLink = document.getElementById('repo-link');

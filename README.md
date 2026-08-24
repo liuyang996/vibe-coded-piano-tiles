@@ -13,6 +13,8 @@
 
 **[👉 在线试玩](https://liuyang996.github.io/vibe-coded-piano-tiles/)**
 
+![游戏截图](screenshot.png)
+
 ---
 
 ## 🎮 玩法
@@ -30,6 +32,7 @@
 - ✅ 最高分本地保存（localStorage），随时回来挑战
 - ✅ 连击 Combo 提示
 - ✅ 音效用 **Web Audio** 实时合成，零音频文件
+- ✅ 背景音乐（Web Audio 循环旋律，可一键开关）
 - ✅ 点击碎裂粒子特效
 - ✅ 手机 / 电脑全端适配
 
