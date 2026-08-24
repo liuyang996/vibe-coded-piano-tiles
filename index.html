@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>别踩白块 · Piano Tiles — 一个 vibe coding 作品</title>
+  <meta name="description" content="别踩白块（Piano Tiles）小游戏，一个用 vibe coding（AI 辅助编程）从零做出来的原生 HTML5 游戏。" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    <div class="stage">
+      <canvas id="game-canvas"></canvas>
+
+      <!-- 顶部 HUD -->
+      <div class="hud">
+        <div class="hud-block">
+          <div class="hud-label">得分</div>
+          <div id="score" class="hud-value">0</div>
+        </div>
+        <div class="hud-block hud-right">
+          <div class="hud-label">最高</div>
+          <div id="best" class="hud-value">0</div>
+        </div>
+      </div>
+      <div id="combo" class="combo"></div>
+
+      <!-- 开始界面 -->
+      <div id="start-screen" class="overlay">
+        <h1 class="title">别踩白块</h1>
+        <p class="subtitle">Piano Tiles · 一个用 vibe coding 做出来的小游戏<br />点击黑色方块，别踩到白的！</p>
+        <button id="start-btn" class="btn btn-primary">开始游戏</button>
+        <p class="best-line">历史最高 <span id="start-best">0</span></p>
+        <button id="about-btn" class="btn btn-ghost">ⓘ 关于这个游戏</button>
+      </div>
+
+      <!-- 结束界面 -->
+      <div id="gameover-screen" class="overlay hidden">
+        <h2 class="over-title">游戏结束</h2>
+        <div class="stats">
+          <div class="stat">
+            <span class="stat-num" id="final-score">0</span>
+            <span class="stat-label">本局得分</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num" id="final-best">0</span>
+            <span class="stat-label">历史最高</span>
+          </div>
+        </div>
+        <button id="restart-btn" class="btn btn-primary">再来一局</button>
+      </div>
+    </div>
+
+    <p class="hint">点击黑色方块 · 或按 1-4 / A S D F</p>
+
+    <!-- 关于弹窗 -->
+    <div id="about-modal" class="modal hidden">
+      <div class="modal-card">
+        <button id="modal-close" class="modal-close" aria-label="关闭">✕</button>
+        <h3>关于这个游戏</h3>
+        <p>这个「别踩白块」是用 <strong>vibe coding（AI 辅助编程）</strong>从零做出来的：先跟 AI 描述玩法，AI 生成代码，我再试玩反馈，几轮迭代就完成了。</p>
+        <ul>
+          <li>原生 HTML / CSS / JavaScript，零依赖、零构建</li>
+          <li>音效用 Web Audio 实时合成，无需任何音频文件</li>
+          <li>最高分本地保存，随时回来挑战</li>
+          <li>支持手机触控与键盘操作</li>
+        </ul>
+        <p class="modal-foot">欢迎到 GitHub 查看源码与制作过程 👉 <a href="#" id="repo-link" target="_blank" rel="noopener">vibe-coded-piano-tiles</a></p>
+      </div>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>

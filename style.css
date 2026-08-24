@@ -1,0 +1,307 @@
+:root {
+  --bg-1: #0b1220;
+  --bg-2: #16213e;
+  --ivory-1: #faf6ec;
+  --ivory-2: #efe5d3;
+  --ink: #1f2430;
+  --accent: #e11d48;
+  --accent-2: #f59e0b;
+  --text-light: #e2e8f0;
+  --text-dim: #94a3b8;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  font-family: "PingFang SC", "Microsoft YaHei", system-ui, -apple-system, "Segoe UI", sans-serif;
+  background: linear-gradient(160deg, var(--bg-1), var(--bg-2));
+  color: var(--text-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100dvh;
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.app {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 14px 0;
+}
+
+/* ---------- 游戏舞台 ---------- */
+.stage {
+  position: relative;
+  width: min(92vw, 420px);
+  height: min(76dvh, 720px);
+  min-height: 460px;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+  background: linear-gradient(180deg, var(--ivory-1), var(--ivory-2));
+}
+
+#game-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+  cursor: pointer;
+  display: block;
+}
+
+/* ---------- HUD ---------- */
+.hud {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 14px 20px;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.hud-label {
+  font-size: 11px;
+  color: rgba(31, 36, 48, 0.55);
+  letter-spacing: 0.08em;
+}
+
+.hud-value {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.hud-right { text-align: right; }
+
+/* ---------- 连击 ---------- */
+.combo {
+  position: absolute;
+  top: 66px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-weight: 800;
+  font-size: 22px;
+  color: var(--accent-2);
+  text-shadow: 0 2px 10px rgba(245, 158, 11, 0.4);
+  display: none;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.combo.pop {
+  animation: comboPop 0.45s ease;
+}
+
+@keyframes comboPop {
+  0%   { transform: scale(0.6); opacity: 0; }
+  60%  { transform: scale(1.15); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* ---------- 覆盖层（开始/结束） ---------- */
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  padding: 24px;
+  text-align: center;
+  background: linear-gradient(180deg, rgba(250, 246, 236, 0.97), rgba(239, 229, 211, 0.98));
+  color: var(--ink);
+}
+
+.overlay.hidden { display: none; }
+
+.title {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 56px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  background: linear-gradient(120deg, #1f2430, #e11d48);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: rgba(31, 36, 48, 0.7);
+  max-width: 300px;
+  line-height: 1.7;
+}
+
+.best-line {
+  font-size: 13px;
+  color: rgba(31, 36, 48, 0.55);
+}
+
+.over-title {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 34px;
+  font-weight: 700;
+}
+
+/* ---------- 按钮 ---------- */
+.btn {
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  border-radius: 999px;
+  font-size: 17px;
+  font-weight: 700;
+  padding: 14px 42px;
+  transition: transform 0.12s ease, box-shadow 0.2s ease;
+}
+
+.btn:active { transform: scale(0.96); }
+
+.btn-primary {
+  background: linear-gradient(120deg, #e11d48, #f43f5e);
+  color: #fff;
+  box-shadow: 0 10px 24px rgba(225, 29, 72, 0.35);
+}
+
+.btn-primary:hover {
+  box-shadow: 0 12px 30px rgba(225, 29, 72, 0.45);
+  transform: translateY(-1px);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: rgba(31, 36, 48, 0.65);
+  font-size: 13px;
+  padding: 8px 18px;
+  border: 1px solid rgba(31, 36, 48, 0.25);
+}
+
+/* ---------- 结束统计 ---------- */
+.stats {
+  display: flex;
+  gap: 40px;
+  margin: 6px 0 4px;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.stat-num {
+  font-size: 42px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.stat-label {
+  font-size: 12px;
+  color: rgba(31, 36, 48, 0.55);
+}
+
+/* ---------- 提示 ---------- */
+.hint {
+  margin-top: 14px;
+  font-size: 12px;
+  color: var(--text-dim);
+  letter-spacing: 0.02em;
+}
+
+/* ---------- 关于弹窗 ---------- */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: rgba(11, 18, 32, 0.62);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal.hidden { display: none; }
+
+.modal-card {
+  position: relative;
+  background: #fff;
+  color: #1f2430;
+  border-radius: 20px;
+  max-width: 400px;
+  width: 100%;
+  padding: 28px 24px 24px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+  max-height: 84dvh;
+  overflow-y: auto;
+}
+
+.modal-card h3 {
+  font-size: 20px;
+  margin-bottom: 12px;
+}
+
+.modal-card p,
+.modal-card li {
+  font-size: 14px;
+  line-height: 1.75;
+  color: #334155;
+}
+
+.modal-card ul {
+  padding-left: 18px;
+  margin: 12px 0;
+}
+
+.modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: #f1f5f9;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 14px;
+  color: #475569;
+}
+
+.modal-close:hover { background: #e2e8f0; }
+
+.modal-foot {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px dashed #e2e8f0;
+}
+
+.modal-foot a {
+  color: #e11d48;
+  font-weight: 600;
+  text-decoration: none;
+}
